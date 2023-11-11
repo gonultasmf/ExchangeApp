@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ExchangeApp.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converter="clr-namespace:ExchangeApp.Converters"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <Converter:StrOpertaionConverter x:Key="strOprConverter" />
+        <Converter:DoubleOperationConverter x:Key="dblOprConverter" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="10,0"
+            Spacing="25"
+            VerticalOptions="Center">
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="{Binding Data.Date}" />
+
+            <CollectionView ItemsSource="{Binding Data.Currency}" ItemsUpdatingScrollMode="KeepLastItemInView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame
+                            Margin="5"
+                            Padding="5"
+                            BorderColor="LightBlue"
+                            CornerRadius="10">
+                            <Grid Padding="5,0" ColumnDefinitions=".1*,.2*,.4*,.2*,.2*">
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="Body"
+                                    Text="{Binding Unit}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    FontSize="Body"
+                                    Text="{Binding Kod}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="2"
+                                    FontAttributes="Italic"
+                                    FontSize="Small"
+                                    Text="{Binding Isim, Converter={StaticResource strOprConverter}}"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="3"
+                                    FontSize="Body"
+                                    Text="{Binding ForexBuying, Converter={StaticResource dblOprConverter}}"
+                                    TextColor="Green"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="4"
+                                    FontSize="Body"
+                                    Text="{Binding ForexSelling, Converter={StaticResource dblOprConverter}}"
+                                    TextColor="Red"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
